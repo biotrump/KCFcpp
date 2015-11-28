@@ -147,6 +147,8 @@ int main(int argc, char* argv[]){
 						face_init=1;
 						tracker.init( Rect(roi[0].x, roi[0].y, roi[0].width, roi[0].height),
 									  frame );
+					}else{
+						face_init=0;
 					}
 				}else{
 					result = tracker.update(frame);
@@ -172,6 +174,7 @@ int main(int argc, char* argv[]){
 			}
 			char c = waitKey(10);
 			if( c == 27 || c == 'q' || c == 'Q' ) { break; }
+			if(c == 'r' ) face_init=0;	//the tracking object is missing, find face again!
 		}//for
 	}
 
