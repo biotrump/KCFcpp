@@ -133,10 +133,17 @@ int main(int argc, char* argv[]){
 					if(nfaces){
 						Rect roi[nfaces];
 						for(int i = 0; i < nfaces; i++){
+#if 1
+							roi[i].width= ss[i];///1.414f;
+							roi[i].height= ss[i];///1.414f;
+							roi[i].x =cs[i] - roi[i].width/2;
+							roi[i].y =rs[i] - roi[i].height/2;
+#else
 							roi[i].width= ss[i]*1.2/1.414f;
 							roi[i].height= ss[i]*1.6/1.414f;
 							roi[i].x =cs[i] - roi[i].width/2;
 							roi[i].y =rs[i] - roi[i].height/2 + roi[i].height/12;
+#endif						
 							rectangle( frame, Point( roi[i].x, roi[i].y ),
 									Point( roi[i].x+roi[i].width, roi[i].y+roi[i].height),
 									Scalar( 0, 255, 0 ), 2, 8 );
@@ -150,7 +157,8 @@ int main(int argc, char* argv[]){
 					}else{
 						face_init=0;
 					}
-				}else{
+				}
+				if(face_init){
 					result = tracker.update(frame);
 					rectangle( frame, Point( result.x, result.y ),
 							   Point( result.x+result.width, result.y+result.height),
